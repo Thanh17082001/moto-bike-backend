@@ -4,8 +4,12 @@ class categoryController{
         const document = await categoryService.add(req.body);
         res.send(document)
     }
-    async findById(req, res){
-        const document = await categoryService.getById(req.params.id)
+    async findByName(data){
+        const document = await categoryService.getByName(data)
+        res.send(document)
+    }
+    async getAll(req, res){
+        const document= await categoryService.getAll();
         res.send(document)
     }
 }

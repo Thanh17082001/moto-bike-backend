@@ -14,4 +14,4 @@ app.use(express.urlencoded({
 route(app);
 
 
-app.listen(process.env.PORT || 3000, () => {})
+app.listen(process.env.PORT || 3000, () => {console.log('start with http://localhost:3000/')})
