@@ -10,20 +10,26 @@ class userController{
     }
    
     async checkLogin(req, res){
-        const document= await userService.getByEmailAndPass(req.body);
-        if(document){
-            const validPassword = await bcrypt.compare(req.body.password,document.password);
-            if(validPassword){
-                const document= await userService.getByEmailAndPass(req.body);
-                res.send(document);
-            }else{ 
-                res.json(null);
+        try {
+            const user = await userService.getByEmail(req.body)
+            if(user){
+                const passCompare = await bcrypt.compare(req.body.password, user.password)
+               if(passCompare){
+                req.session.auth={
+                    ...user
+                }
+                res.json(req.session.auth._doc)
+               }else{
+                    res.json(null)
+               }
             }
+            else{
+                res.json('ko co');
+            }
+        } catch (error) {
+            res.json(error);
         }
-        else{
-            res.json(document)
-        }
-       
+        
     }
 }
 

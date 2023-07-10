@@ -14,7 +14,7 @@ class userService {
         return await userDb.create(news);
     }
     
-    async getByEmailAndPass(data){
+    async getByEmail(data){
         const result =await userDb.findOne({email:data.email});
         return result
     }
