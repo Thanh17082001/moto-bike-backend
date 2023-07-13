@@ -1,11 +1,13 @@
 const express = require('express')
 const cors = require ('cors');
-const route = require('./src/routes/index.route')
+const route = require('./routes/index.route')
 const session = require('express-session')
+import dotenv from 'dotenv'
+
 const app = express();
-const db = require('./src/config/db') 
+const db = require('./config/db') 
 // app.use(express.static(path.join(__dirname,'public')))
-app.use(cors());
+app.use(cors({credentials: true, origin: 'http://localhost:3001'}));
 db.connect();
 app.use(session({
     secret: 'keyboard cat',
@@ -17,6 +19,9 @@ app.use(express.json())
 app.use(express.urlencoded({
     extended:true
 }));
+
+
+dotenv.config()
 
 route(app);
 
