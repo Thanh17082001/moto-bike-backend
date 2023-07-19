@@ -7,6 +7,8 @@ const userRoute = require('./user.route')
 const companyRoute = require('./Company.route')
 const typeRoute = require('./type.route')
 
+import cartRoute from './cart.route'
+
 function route(app){
     app.use('/product',productRoute);
     app.use('/category',categoryRoute);
@@ -16,5 +18,6 @@ function route(app){
     app.use('/user',userRoute);
     app.use('/company',companyRoute);
     app.use('/type',typeRoute);
+    app.use('/cart',cartRoute);
 };
 module.exports=route

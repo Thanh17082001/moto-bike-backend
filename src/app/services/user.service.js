@@ -15,7 +15,7 @@ class userService {
     }
     
     async getByEmail(data){
-        const result =await userDb.findOne({email:data.email});
+        const result =await userDb.findOne({email:data.email}).lean();
         return result
     }
     async checkPass(password,passInDb){

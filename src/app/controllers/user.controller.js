@@ -1,5 +1,6 @@
 const userService= require ('../services/user.service');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
+const FacebookStrategy = require('passport-facebook').Strategy;
 import passport from 'passport';
 const bcrypt = require('bcrypt');
 import dotenv from 'dotenv'
@@ -22,7 +23,7 @@ class userController{
                 req.session.auth={
                     ...user
                 }
-                res.json(req.session.auth._doc)
+                res.json(req.session.auth)
                }else{
                     res.json(null)
                }
@@ -57,6 +58,47 @@ class userController{
                              user = await userService.add(data)
                             return done(null, user) 
                         }
+    
+                    }
+                )
+            );
+            
+            passport.serializeUser(function(user, done) {
+                done(null, {user:user});
+              });
+              
+              passport.deserializeUser(function(user, done) {
+                done(null, user);
+              });
+            } catch (error) {
+                console.log(error);
+            }
+            
+    }
+
+    loginWithFacebook(){
+        try {
+            passport.use(new FacebookStrategy({
+                clientID: '3642170909339710', // cau hinh ID va secret cua gg
+                clientSecret: '37a6c8e2f9ea387c6b40618157c2082d',
+                callbackURL: "http://localhost:3000/user/facebook/callback"
+              },
+                    async function(accessToken, refreshToken, profile, done) {
+                        console.log(profile);
+                        // let user = await userService.getByEmail({email: profile.emails[0].value})
+                        // if(user){
+                        //    return done(null, user) 
+                        // }
+                        // else{
+                        //     // const data ={
+                        //     //     email:profile.emails[0].value,
+                        //     //     name: profile.displayName,
+                                
+                        //     // }
+                        //     console.log(profile);
+                        //      user = await userService.add(data)
+                        //     return done(null, user) 
+                        // }
     
                     }
                 )

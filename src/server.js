@@ -2,11 +2,14 @@ const express = require('express')
 const cors = require ('cors');
 const route = require('./routes/index.route')
 const session = require('express-session')
+import passport from 'passport';
 import dotenv from 'dotenv'
 
 const app = express();
-const db = require('./config/db') 
+const db = require('./config/db')
+app.use(passport.initialize());
 // app.use(express.static(path.join(__dirname,'public')))
+
 app.use(cors({credentials: true, origin: 'http://localhost:3001'}));
 db.connect();
 app.use(session({
