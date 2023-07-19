@@ -26,7 +26,6 @@ router.get('/google/callback', passport.authenticate('google', { failureRedirect
 })
 router.get('/user-info',(req, res) =>{
     res.json(req.session.auth)
-    console.log(req.session.auth)
 })
 
 router.get('/facebook', passport.authenticate('facebook', { scope: ['user_friends', 'manage_pages'] }))
