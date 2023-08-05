@@ -29,7 +29,7 @@ class categoryService {
   }
 
   async getProductById(id) {
-    return await productDb.find({ deleted: false, _id:id });
+    return await productDb.find({ deleted: false, _id:id }).lean();
   }
   async getProductByCompany(idCompany) {
     return await productDb.find({ idCompany, deleted: false , quanlity:{$gt:0}});
