@@ -10,7 +10,7 @@ const db = require('./config/db')
 app.use(passport.initialize());
 // app.use(express.static(path.join(__dirname,'public')))
 
-app.use(cors({credentials: true, origin: 'http://localhost:3001'}));
+app.use(cors({credentials: true, origin: 'http://localhost:3003'}));
 db.connect();
 app.use(session({
     secret: 'keyboard cat',
